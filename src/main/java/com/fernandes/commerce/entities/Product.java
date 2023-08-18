@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,11 +31,10 @@ public class Product {
     private Double price;
     private String imgUrl;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_product_category",
-    joinColumns = @JoinColumn(name = "product_id"),
-    inverseJoinColumns = @JoinColumn(name = "category_id"))
-
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "id.product")
