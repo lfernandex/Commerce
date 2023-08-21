@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.fernandes.commerce.dto.CustomError;
 import com.fernandes.commerce.dto.ValidationError;
 import com.fernandes.commerce.services.exceptions.DatabaseException;
+import com.fernandes.commerce.services.exceptions.ForbiddenException;
 import com.fernandes.commerce.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -49,6 +50,16 @@ public class ControllerExceptionHandler {
             for(FieldError f : e.getBindingResult().getFieldErrors()) {
                 err.addError(f.getField(), f.getDefaultMessage());
             }
+
+            return ResponseEntity.status(status).body(err);
+        }
+
+        @ExceptionHandler(ForbiddenException.class)
+        public ResponseEntity<CustomError> forbidden(ForbiddenException e, HttpServletRequest request){
+
+            HttpStatus status = HttpStatus.FORBIDDEN;
+
+            CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
 
             return ResponseEntity.status(status).body(err);
         }
