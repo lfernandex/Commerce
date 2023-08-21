@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fernandes.commerce.dto.CategoryDTO;
 import com.fernandes.commerce.dto.ProductDTO;
 import com.fernandes.commerce.dto.ProductMinDTO;
+import com.fernandes.commerce.entities.Category;
 import com.fernandes.commerce.entities.Product;
 import com.fernandes.commerce.repositories.ProductRepository;
 import com.fernandes.commerce.services.exceptions.DatabaseException;
@@ -75,8 +77,6 @@ public class ProductService {
         }
         catch(DataIntegrityViolationException e){   
             throw new DatabaseException("Falha de integridade referencial");
-
-
         }
     }
 
@@ -86,5 +86,13 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        entity.getCategories().clear();
+
+        for (CategoryDTO catDTO : dto.getCategories()){
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            entity.getCategories().add(cat);
+        }
     }
 }
