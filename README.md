@@ -61,7 +61,7 @@ Nosso foco foi manter a consistência com as regras de negócios presentes no mo
 
 ![image](https://github.com/lfernandex/Commerce/assets/106842103/c651c01b-a618-4d6f-9ffa-f7fe4071348f)
 
-## Camadas e CRUD
+## Camadas
 Seguindo o padrão de camadas, organizamos os componentes do sistema de forma hierárquica. Cada camada tem uma responsabilidade específica e os componentes de uma camada só dependem de componentes da mesma camada ou de camadas inferiores. A estrutura ficou da seguinte forma:
 
 ![image](https://github.com/lfernandex/Commerce/assets/106842103/39be8d68-da8a-409f-a459-29652f05bf1d)
